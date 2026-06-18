@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maternidade Atípica | Acolhimento e Suporte ao TEA</title>
+    <link rel="shortcut icon" href="inconTEA.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        important: false,
+        corePlugins: { preflight: false },
+        theme: {
+          extend: {
+            colors: {
+              salvia:       "#5b8a78",
+              "salvia-cl":  "#c3e0d6",
+              "salvia-sv":  "#dceee4",
+              rosa:         "#c4798c",
+              "rosa-cl":    "#edc9d4",
+              "rosa-sv":    "#f7e1e7",
+              areia:        "#ddc9a3",
+              "areia-sv":   "#ecdfc2",
+              mel:          "#c9953a",
+              "mel-sv":     "#f5e2b0",
+              escuro:       "#332e25",
+              medio:        "#5c5448",
+              suave:        "#8f8775",
+              linha:        "#d9c9a6",
+              fundo:        "#e8dec7",
+              branco:       "#f6efe1",
+            },
+            fontFamily: {
+              nunito:   ["'Nunito'", "system-ui", "sans-serif"],
+              playfair: ["'Playfair Display'", "serif"],
+            },
+          },
+        },
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+
+    <!-- Barra de Acessibilidade Superior -->
+    <div class="barra-acessibilidade" role="complementary" aria-label="Controles de acessibilidade">
+        <div class="acessibilidade-container">
+            <div class="botoes-fonte">
+                <span style="font-size:0.78rem; margin-right: 4px; opacity: 0.7;">Texto:</span>
+                <button id="btn-diminuir-fonte" aria-label="Diminuir tamanho do texto">A−</button>
+                <button id="btn-aumentar-fonte" aria-label="Aumentar tamanho do texto">A+</button>
+            </div>
+            <button id="btn-tema" class="btn-alternar-tema" aria-label="Alternar entre modo claro e escuro">
+                <span class="icone-sol" aria-hidden="true">☀️</span>
+                <span class="icone-lua" aria-hidden="true">🌙</span>
+                <span class="texto-tema">Modo Escuro</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Menu de Navegação Superior -->
+    <header role="banner">
+        <nav class="navbar" aria-label="Menu principal">
+            <a href="#inicio" class="logo" aria-label="Maternidade Atípica - Início">
+                <img src="asperger.png" alt="" class="icone-logo" aria-hidden="true">
+                <div class="texto-logo">
+                    <strong>Maternidade Atípica</strong>
+                    <span>Rede de Apoio ao TEA</span>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#guias">Guias</a></li>
+                <li><a href="#depoimentos">Relatos</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="relatos.html">Espaço de Relatos</a></li>
+                <li data-auth="visitante"><button id="btn-abrir-login" class="btn-login-nav" aria-label="Entrar ou criar conta">Entrar</button></li>
+                <li data-auth="logado" class="escondido"><a href="miconta.html" class="btn-login-nav btn-perfil-nav inline-flex items-center gap-1.5">Meu Perfil</a></li>
+                <li data-auth="logado" class="escondido"><button id="btn-sair" class="btn-sair-nav" aria-label="Sair da conta">Sair</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Seção Hero -->
+    <section class="hero" id="inicio" aria-labelledby="titulo-hero">
+        <div class="hero-container">
+            <div class="hero-texto">
+                <span class="tag-boas-vindas animate-pulse-slow inline-flex items-center gap-1 ring-1 ring-yellow-300/40 shadow-sm">💛 Você não está sozinha</span>
+                <h1 id="titulo-hero">Respire fundo.<br><em>Vamos caminhar juntas?</em></h1>
+                <p>O diagnóstico de TEA do seu filho não define o futuro dele, nem o seu. Aqui você encontra orientação clara, direitos explicados com cuidado e ferramentas visuais para trazer mais paz à sua rotina.</p>
+                <div class="hero-botoes">
+                    <a href="#guias" class="btn btn-principal shadow-md hover:shadow-lg transition-shadow duration-300">Preciso de Orientação</a>
+                    <a href="relatos.html" class="btn btn-secundario shadow-sm hover:shadow-md transition-shadow duration-300">Ver Relatos de Outras Mães</a>
+                </div>
+            </div>
+            <div class="hero-badge-acolhimento" role="note">
+                <p>"Olhe para o seu filho, não apenas para o laudo. O diagnóstico abre portas, mas o amor guia o caminho."</p>
+                <div class="hero-mini-stats">
+                    <div class="mini-stat">
+                        <strong>9</strong>
+                        <span>Guias práticos</span>
+                    </div>
+                    <div class="mini-stat">
+                        <strong>100%</strong>
+                        <span>Com carinho</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Faixa de Confiança -->
+    <div class="faixa-confianca" aria-hidden="true">
+        <div class="faixa-confianca-inner">
+            <div class="item-confianca group transition-transform duration-200 hover:-translate-y-1">
+                <div class="icone-conf">🔒</div>
+                <span>Conteúdo verificado</span>
+            </div>
+            <div class="item-confianca group transition-transform duration-200 hover:-translate-y-1">
+                <div class="icone-conf">💗</div>
+                <span>Espaço seguro e sem julgamentos</span>
+            </div>
+            <div class="item-confianca group transition-transform duration-200 hover:-translate-y-1">
+                <div class="icone-conf">⚡</div>
+                <span>Informação acessível e clara</span>
+            </div>
+            <div class="item-confianca group transition-transform duration-200 hover:-translate-y-1">
+                <div class="icone-conf">🌿</div>
+                <span>Gratuito para todas as famílias</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Área de Conteúdo e Busca -->
+    <main class="conteudo-principal" id="guias" aria-labelledby="titulo-central">
+        <div class="cabecalho-secao">
+            <span class="eyebrow">Central de Conhecimento</span>
+            <h2 id="titulo-central">Encontre o que você precisa agora</h2>
+            <p>Selecione um tema abaixo ou use a busca rápida. Cada guia foi escrito com cuidado, pensando em você.</p>
+            <div class="busca-container">
+                <label for="campo-busca" class="sr-only">Buscar artigos por palavras-chave</label>
+                <input type="text" id="campo-busca" placeholder="Ex: BPC, crise sensorial, escola, rotina…">
+                <span class="busca-icone" aria-hidden="true">🔍</span>
+            </div>
+        </div>
+
+        <div class="grid-cards" id="grid-guias" role="region" aria-label="Guias informativos">
+
+            <!-- Card 1: Diagnóstico -->
+            <div class="card group/card" data-id="diagnostico" data-tags="laudo luto sentimento inicio medico psicologia primeiros passos" role="button" tabindex="0" aria-haspopup="dialog">
+                <div class="card-tag">Acolhimento</div>
+                <div class="card-header">
+                    <div class="card-emoji-wrap" aria-hidden="true">🌱</div>
+                    <h3>O Laudo Chegou. E agora?</h3>
+                </div>
+                <p>O turbilhão de emoções é real e legítimo. Saiba como acolher seus sentimentos e dar os primeiros passos práticos sem pirar.</p>
+                <span class="card-acao">Acessar Guia de Primeiros Dias &rarr;</span>
+            </div>
+
+            <!-- Card 2: Direitos -->
+            <div class="card group/card" data-id="direitos" data-tags="leis bpc loas sus plano de saude justica escola mediador liminar ans inss beneficio" role="button" tabindex="0" aria-haspopup="dialog">
+                <div class="card-tag">Leis e Cidadania</div>
+                <div class="card-header">
+                    <div class="card-emoji-wrap" aria-hidden="true">⚖️</div>
+                    <h3>Direitos, Planos e BPC</h3>
+                </div>
+                <p>Sessões ilimitadas, vaga na escola com mediador e o benefício do INSS. Descubra como garantir o que é do seu filho por direito.</p>
+                <span class="card-acao">Ver Direitos Garantidos &rarr;</span>
+            </div>
+
+            <!-- Card 3: Rotina -->
+            <div class="card group/card" data-id="rotina" data-tags="crise birra comportamento previsibilidade picto quadro calmante timer visual agenda antecipacao" role="button" tabindex="0" aria-haspopup="dialog">
+                <div class="card-tag">Dia a Dia</div>
+                <div class="card-header">
+                    <div class="card-emoji-wrap" aria-hidden="true">🧩</div>
+                    <h3>Rotina e Regulação Sensorial</h3>
+                </div>
+                <p>Aprenda a estruturar o ambiente e usar a previsibilidade para reduzir a ansiedade e evitar crises em casa ou na rua.</p>
+                <span class="card-acao">Aprender Estratégias &rarr;</span>
+            </div>
+
+            <!-- Card 4: Escola -->
+            <div class="card group/card" data-id="escola" data-tags="colegio inclusao pei adaptacao professor mediador bullying plano ensino individualizado avaliacao" role="button" tabindex="0" aria-haspopup="dialog">
+                <div class="card-tag">Educação</div>
+                <div class="card-header">
+                    <div class="card-emoji-wrap" aria-hidden="true">🎒</div>
+                    <h3>Inclusão Escolar Efetiva</h3>
+                </div>
+                <p>O que é o PEI (Plano de Ensino Individualizado)? Saiba como cobrar a escola por uma adaptação pedagógica de verdade.</p>
+                <span class="card-acao">Entender a Inclusão &rarr;</span>
+            </div>
+
+            <!-- Card 5: Mãe -->
+            <div class="card group/card" data-id="mae" data-tags="saude mental burnout cansaco culpa ansiedade depressao desabafo autocuidado esgotamento materno" role="button" tabindex="0" aria-haspopup="dialog">
+                <div class="card-tag">Saúde Materna</div>
+                <div class="card-header">
+                    <div class="card-emoji-wrap" aria-hidden="true">☕</div>
+                    <h3>Quem Cuida de Quem Cuida?</h3>
+                </div>
+                <p>Um espaço dedicado exclusivamente a você, mãe. Falamos abertamente sobre burnout materno, solidão e a importância do autocuidado.</p>
+                <span class="card-acao">Reservar um Tempo para Você &rarr;</span>
+            </div>
+
+            <!-- Card 6: Alimentação -->
+            <div class="card group/card" data-id="alimentacao" data-tags="seletividade comer recusa textura sensivel nutricao alimento disfuncao processamento sensorial seletividade alimentar" role="button" tabindex="0" aria-haspopup="dialog">
+                <div class="card-tag">Nutrição</div>
+                <div class="card-header">
+                    <div class="card-emoji-wrap" aria-hidden="true">🥦</div>
+                    <h3>Lidando com a Seletividade</h3>
+                </div>
+                <p>Seu filho só come coisas da mesma cor ou textura? Entenda o lado sensorial da alimentação e como expandir o cardápio sem traumas.</p>
+                <span class="card-acao">Ver Dicas de Alimentação &rarr;</span>
+            </div>
+
+            <!-- Card 7: Comportamento -->
+            <div class="card card-comportamento" data-id="comportamento" data-tags="agressividade crise birra morder bater autoagressao raiva meltdown regulacao emocional comportamento dificil gatilho" role="button" tabindex="0" aria-haspopup="dialog">
+                <div class="card-tag">Comportamento</div>
+                <div class="card-header">
+                    <div class="card-emoji-wrap" aria-hidden="true">🧠</div>
+                    <h3>Entendendo e Manejando Comportamentos</h3>
+                </div>
+                <p>Agressividade, meltdowns, autoagressão — entenda por que acontecem e aprenda estratégias gentis e eficazes para ajudar seu filho a se regular.</p>
+                <span class="card-acao">Ver Estratégias de Manejo &rarr;</span>
+            </div>
+
+            <!-- Card 8: Graus TEA -->
+            <div class="card card-graus" data-id="grausTEA" data-tags="nivel 1 2 3 grau suporte asperger autismo classico tea leve moderado severo necessidades qualidades dificuldades tipos espectro" role="button" tabindex="0" aria-haspopup="dialog">
+                <div class="card-tag">Entendendo o TEA</div>
+                <div class="card-header">
+                    <div class="card-emoji-wrap" aria-hidden="true">🌈</div>
+                    <h3>O Espectro: Níveis, Perfis e Necessidades</h3>
+                </div>
+                <p>TEA nível 1, 2 ou 3 — o que isso significa na prática? Conheça os perfis do espectro, suas qualidades únicas e as necessidades de suporte de cada um.</p>
+                <span class="card-acao">Conhecer o Espectro &rarr;</span>
+            </div>
+
+            <!-- Card 9: Terapias -->
+            <div class="card card-terapias" data-id="terapias" data-tags="fono fonoaudiologia terapia ocupacional aba caa musicoterapia psicoterapia sessoes tratamento intervencao precoce" role="button" tabindex="0" aria-haspopup="dialog">
+                <div class="card-tag">Terapias</div>
+                <div class="card-header">
+                    <div class="card-emoji-wrap" aria-hidden="true">🏥</div>
+                    <h3>Guia Completo das Terapias</h3>
+                </div>
+                <p>Fono, TO, ABA, CAA, psicoterapia — o que cada uma faz, para que serve e como acessar pelo plano de saúde ou pelo SUS sem complicação.</p>
+                <span class="card-acao">Conhecer as Terapias &rarr;</span>
+            </div>
+
+        </div>
+
+        <div id="busca-vazia" class="busca-vazia escondido" role="status">
+            <p>Nenhum material encontrado com esse termo. Tente buscar por "BPC", "Rotina" ou "Laudo".</p>
+        </div>
+    </main>
+
+    <!-- Depoimentos / Relatos Dinâmicos da Comunidade -->
+    <section class="depoimentos" id="depoimentos" aria-labelledby="titulo-depoimentos">
+        <div class="depoimentos-header">
+            <span class="eyebrow">Rede de Afeto</span>
+            <h2 id="titulo-depoimentos">Relatos de quem sabe o que você passa</h2>
+            <p class="depoimentos-subtitulo">Histórias reais compartilhadas pela nossa comunidade.</p>
+        </div>
+        <div class="grid-depoimentos" id="grid-relatos-home">
+            <!-- Preenchido dinamicamente por script.js via Supabase -->
+            <!-- Fallback estático exibido enquanto carrega -->
+            <blockquote class="depoimento-item depoimento-fallback overflow-hidden rounded-2xl transition-shadow duration-300 hover:shadow-lg">
+                <p>"Quando meu filho foi laudado nível 3 aos 2 anos, achei que nunca mais sorriria. Hoje ele tem 6 anos, se comunica pelo tablet e celebramos cada microvitória. Esse site teria me salvado no começo."</p>
+                <div class="depoimento-author">
+                    <div class="avatar-depoimento">MS</div>
+                    <cite>Mariana S. — mãe do Léo, 6 anos</cite>
+                </div>
+            </blockquote>
+            <blockquote class="depoimento-item depoimento-fallback overflow-hidden rounded-2xl transition-shadow duration-300 hover:shadow-lg">
+                <p>"Os cartões visuais mudaram as manhãs aqui em casa. Acabaram as crises para ir tomar banho porque ele agora entende o que vem depois. Parece simples, mas foi transformador."</p>
+                <div class="depoimento-author">
+                    <div class="avatar-depoimento">CT</div>
+                    <cite>Carla T. — mãe do Pedro, 4 anos</cite>
+                </div>
+            </blockquote>
+        </div>
+        <div class="depoimentos-rodape">
+            <a href="relatos.html" class="btn btn-secundario inline-flex items-center gap-2 shadow-sm hover:shadow-md transition-all duration-300">Ver todos os relatos →</a>
+        </div>
+    </section>
+
+    <!-- Modal Artigos -->
+    <div class="modal-overlay" id="modal-dinamico" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal-corpo">
+            <button class="fechar-modal" id="fechar-modal-btn" aria-label="Fechar janela modal">&times;</button>
+            <div id="modal-conteudo-interno"></div>
+        </div>
+    </div>
+
+    <!-- Modal Auth -->
+        <div class="modal-overlay" id="modal-auth" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal-corpo modal-auth-corpo">
+            <button class="fechar-modal" id="fechar-auth-btn" aria-label="Fechar janela de autenticação">&times;</button>
+            <div class="auth-abas" role="tablist">
+                <button id="tab-login" class="auth-tab ativa" role="tab" aria-selected="true" aria-controls="painel-login">Entrar</button>
+                <button id="tab-cadastro" class="auth-tab" role="tab" aria-selected="false" aria-controls="painel-cadastro">Criar Conta</button>
+            </div>
+            <div id="painel-login" class="auth-painel" role="tabpanel" aria-labelledby="tab-login">
+                <h3>Que bom ver você de volta!</h3>
+                <p class="auth-mensagem escondido" id="login-mensagem" role="alert"></p>
+                <form id="form-login" autocomplete="on">
+                    <div class="auth-grupo">
+                        <label for="login-email">E-mail</label>
+                        <input type="email" id="login-email" name="email" required placeholder="seuemail@exemplo.com" autocomplete="email">
+                    </div>
+                    <div class="auth-grupo">
+                        <label for="login-senha">Senha</label>
+                        <input type="password" id="login-senha" name="password" required placeholder="Digite sua senha" autocomplete="current-password">
+                    </div>
+                    <button type="submit" class="btn btn-principal btn-auth-enviar">Entrar no Espaço</button>
+                </form>
+                <div style="text-align:right; margin-top:12px;">
+                    <a href="#" id="link-esqueci-senha" style="font-size:0.85rem; color:var(--salvia); font-weight:700; text-decoration:underline;">Esqueci minha senha</a>
+                </div>
+            </div>
+            <div id="painel-esqueci-senha" class="auth-painel escondido" role="tabpanel">
+                <h3>Redefinir senha</h3>
+                <p style="color:var(--medio);font-size:0.92rem;margin-bottom:20px;line-height:1.6;">Digite seu e-mail cadastrado e enviaremos um link para você criar uma nova senha.</p>
+                <p class="auth-mensagem escondido" id="esqueci-mensagem" role="alert"></p>
+                <form id="form-esqueci-senha" autocomplete="on">
+                    <div class="auth-grupo">
+                        <label for="esqueci-email">E-mail</label>
+                        <input type="email" id="esqueci-email" name="email" required placeholder="seuemail@exemplo.com" autocomplete="email">
+                    </div>
+                    <button type="submit" class="btn btn-principal btn-auth-enviar">Enviar link de redefinição</button>
+                </form>
+                <div style="text-align:center; margin-top:16px;">
+                    <a href="#" id="link-voltar-login" style="font-size:0.85rem; color:var(--suave); font-weight:700; text-decoration:underline;">← Voltar para o login</a>
+                </div>
+            </div>
+            <div id="painel-cadastro" class="auth-painel escondido" role="tabpanel" aria-labelledby="tab-cadastro">
+                <h3>Junte-se à nossa rede de apoio</h3>
+                <p class="auth-mensagem escondido" id="cadastro-mensagem" role="alert"></p>
+                <form id="form-cadastro" autocomplete="on">
+                    <div class="auth-grupo">
+                        <label for="cadastro-nome">Nome Completo</label>
+                        <input type="text" id="cadastro-nome" name="name" required placeholder="Como quer ser chamada?" autocomplete="name">
+                    </div>
+                    <div class="auth-grupo">
+                        <label for="cadastro-email">E-mail</label>
+                        <input type="email" id="cadastro-email" name="email" required placeholder="seuemail@exemplo.com" autocomplete="email">
+                    </div>
+                    <div class="auth-grupo">
+                        <label for="cadastro-senha">Senha</label>
+                        <input type="password" id="cadastro-senha" name="new-password" required placeholder="Mínimo 6 caracteres" minlength="6" autocomplete="new-password">
+                    </div>
+                    <button type="submit" class="btn btn-principal btn-auth-enviar">Criar Minha Conta</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer role="contentinfo">
+        <div class="rodape-container">
+            <div>
+                <div class="rodape-logo">
+                    <img src="asperger.png" alt="" class="rodape-logo-icone" aria-hidden="true">
+                    <strong>Maternidade Atípica</strong>
+                </div>
+                <p class="rodape-descricao">Um espaço criado com carinho, respeito e responsabilidade para mães e famílias que caminham na jornada do TEA.</p>
+            </div>
+            <div class="rodape-links-col">
+                <h5>Explorar</h5>
+                <a href="#guias">Guias Informativos</a>
+                <a href="#depoimentos">Relatos da Comunidade</a>
+                <a href="Relatório Maternidade Atípica.pdf" target="_blank" rel="noopener noreferrer">Documentação</a>
+            </div>
+        </div>
+        <div class="rodape-bottom">
+            <p>&copy; 2026 Maternidade Atípica — Feito com 💚 e muita dedicação.</p>
+            <p><a href="https://github.com/Jordana-code/Maternidade-Atipica" target="_blank" rel="noopener noreferrer" class="rodape-github-link" aria-label="Ver código-fonte no GitHub"><svg class="rodape-github-icone" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>Ver no GitHub</a></p>
+            <p class="aviso-medico">Aviso: O conteúdo deste site é informativo e de apoio mútuo. Não substitui diagnóstico médico, avaliações neuropsicológicas ou intervenções clínicas personalizadas.</p>
+        </div>
+    </footer>
+
+    <script src="supabase-config.js"></script>
+    <script src="auth.js"></script>
+    <script src="comum.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

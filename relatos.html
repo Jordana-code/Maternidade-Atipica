@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil | Maternidade Atípica</title>
+    <link rel="shortcut icon" href="inconTEA.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        important: false,
+        corePlugins: { preflight: false },
+        theme: {
+          extend: {
+            colors: {
+              salvia:       "#5b8a78",
+              "salvia-cl":  "#c3e0d6",
+              "salvia-sv":  "#dceee4",
+              rosa:         "#c4798c",
+              "rosa-cl":    "#edc9d4",
+              "rosa-sv":    "#f7e1e7",
+              areia:        "#ddc9a3",
+              "areia-sv":   "#ecdfc2",
+              mel:          "#c9953a",
+              "mel-sv":     "#f5e2b0",
+              escuro:       "#332e25",
+              medio:        "#5c5448",
+              suave:        "#8f8775",
+              linha:        "#d9c9a6",
+              fundo:        "#e8dec7",
+              branco:       "#f6efe1",
+            },
+            fontFamily: {
+              nunito:   ["'Nunito'", "system-ui", "sans-serif"],
+              playfair: ["'Playfair Display'", "serif"],
+            },
+          },
+        },
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="miconta.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+</head>
+<body>
+
+    <!-- Barra de Acessibilidade Superior -->
+    <div class="barra-acessibilidade" role="complementary" aria-label="Controles de acessibilidade">
+        <div class="acessibilidade-container">
+            <div class="botoes-fonte">
+                <span style="font-size:0.78rem; margin-right: 4px; opacity: 0.7;">Texto:</span>
+                <button id="btn-diminuir-fonte" aria-label="Diminuir tamanho do texto">A−</button>
+                <button id="btn-aumentar-fonte" aria-label="Aumentar tamanho do texto">A+</button>
+            </div>
+            <button id="btn-tema" class="btn-alternar-tema" aria-label="Alternar entre modo claro e escuro">
+                <span class="icone-sol" aria-hidden="true">☀️</span>
+                <span class="icone-lua" aria-hidden="true">🌙</span>
+                <span class="texto-tema">Modo Escuro</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Menu de Navegação Superior -->
+    <header role="banner">
+        <nav class="navbar" aria-label="Menu principal">
+            <a href="index.html" class="logo" aria-label="Maternidade Atípica - Início">
+                <img src="asperger.png" alt="" class="icone-logo" aria-hidden="true">
+                <div class="texto-logo">
+                    <strong>Maternidade Atípica</strong>
+                    <span>Rede de Apoio ao TEA</span>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="index.html#guias">Guias</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="relatos.html">Espaço de Relatos</a></li>
+                <li data-auth="visitante"><button id="btn-abrir-login" class="btn-login-nav" aria-label="Entrar ou criar conta">Entrar</button></li>
+                <li data-auth="logado" class="escondido"><a href="miconta.html" class="btn-login-nav btn-perfil-nav" aria-current="page">Meu Perfil</a></li>
+                <li data-auth="logado" class="escondido"><button id="btn-sair" class="btn-sair-nav" aria-label="Sair da conta">Sair</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Cabeçalho da Página -->
+    <section class="pagina-header">
+        <div class="pagina-header-conteudo">
+            <span class="eyebrow tracking-widest uppercase text-xs font-bold">Minha Conta</span>
+            <h1>Seu espaço, sua jornada</h1>
+            <p>Atualize sua foto de perfil e acompanhe tudo o que você já compartilhou com a nossa comunidade.</p>
+        </div>
+    </section>
+
+    <main class="conteudo-blog conteudo-perfil">
+
+        <!-- Cartão de Perfil -->
+        <section class="card-perfil ring-1 ring-linha/30 transition-shadow duration-300 hover:shadow-xl" aria-labelledby="titulo-perfil">
+            <h2 id="titulo-perfil" class="sr-only">Meu Perfil</h2>
+
+            <div class="perfil-avatar-area">
+                <div class="perfil-avatar-grande" id="perfil-avatar-grande" aria-hidden="true"></div>
+                <div class="perfil-avatar-acoes">
+                    <label for="input-avatar" class="btn btn-secundario btn-trocar-foto">Alterar foto de perfil</label>
+                    <input type="file" id="input-avatar" accept="image/png, image/jpeg, image/webp" class="sr-only">
+                    <p class="perfil-avatar-dica">PNG, JPG ou WEBP — máximo 2MB</p>
+                    <p class="auth-mensagem escondido" id="avatar-mensagem" role="alert"></p>
+                </div>
+            </div>
+
+            <div class="perfil-info">
+                <h3 id="perfil-nome">Carregando...</h3>
+                <p id="perfil-email" class="perfil-email"></p>
+            </div>
+        </section>
+
+        <!-- Zona de Perigo: Excluir Conta -->
+        <section class="card-zona-perigo ring-1 ring-rosa-cl/60 transition-all duration-300" aria-labelledby="titulo-zona-perigo">
+            <h2 id="titulo-zona-perigo">Zona de Perigo</h2>
+            <p class="zona-perigo-descricao">Ao excluir sua conta, todos os seus dados, publicações e relatos serão removidos permanentemente. Esta ação <strong>não pode ser desfeita</strong>.</p>
+            <button id="btn-excluir-conta" class="btn-excluir-conta transition-all duration-300 hover:scale-[1.02]" type="button">🗑️ Excluir minha conta permanentemente</button>
+        </section>
+
+        <!-- Histórico de Atividades -->
+        <section class="card-historico" aria-labelledby="titulo-historico">
+            <h2 id="titulo-historico">Meu histórico de publicações</h2>
+
+            <div class="abas-historico" role="tablist">
+                <button id="tab-historico-blog" class="auth-tab ativa" role="tab" aria-selected="true" aria-controls="painel-historico-blog">Publicações no Blog</button>
+                <button id="tab-historico-relatos" class="auth-tab" role="tab" aria-selected="false" aria-controls="painel-historico-relatos">Relatos</button>
+            </div>
+
+            <div id="painel-historico-blog" class="painel-historico" role="tabpanel" aria-labelledby="tab-historico-blog">
+                <div id="carregando-historico-blog" class="carregando" role="status">Carregando suas publicações...</div>
+                <div id="historico-blog-vazio" class="busca-vazia escondido" role="status">
+                    <p>Você ainda não publicou nada no blog.</p>
+                    <a href="blog.html" class="btn btn-principal btn-historico-vazio">Que tal começar agora?</a>
+                </div>
+                <div id="container-historico-blog" class="lista-historico"></div>
+            </div>
+
+            <div id="painel-historico-relatos" class="painel-historico escondido" role="tabpanel" aria-labelledby="tab-historico-relatos">
+                <div id="carregando-historico-relatos" class="carregando" role="status">Carregando seus relatos...</div>
+                <div id="historico-relatos-vazio" class="busca-vazia escondido" role="status">
+                    <p>Você ainda não compartilhou nenhum relato.</p>
+                    <a href="relatos.html" class="btn btn-principal btn-historico-vazio">Compartilhar agora</a>
+                </div>
+                <div id="container-historico-relatos" class="lista-historico"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal Auth (necessário para o comum.js, mas só aparece se a sessão expirar) -->
+        <div class="modal-overlay" id="modal-auth" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal-corpo modal-auth-corpo">
+            <button class="fechar-modal" id="fechar-auth-btn" aria-label="Fechar janela de autenticação">&times;</button>
+            <div class="auth-abas" role="tablist">
+                <button id="tab-login" class="auth-tab ativa" role="tab" aria-selected="true" aria-controls="painel-login">Entrar</button>
+                <button id="tab-cadastro" class="auth-tab" role="tab" aria-selected="false" aria-controls="painel-cadastro">Criar Conta</button>
+            </div>
+            <div id="painel-login" class="auth-painel" role="tabpanel" aria-labelledby="tab-login">
+                <h3>Que bom ver você de volta!</h3>
+                <p class="auth-mensagem escondido" id="login-mensagem" role="alert"></p>
+                <form id="form-login" autocomplete="on">
+                    <div class="auth-grupo">
+                        <label for="login-email">E-mail</label>
+                        <input type="email" id="login-email" name="email" required placeholder="seuemail@exemplo.com" autocomplete="email">
+                    </div>
+                    <div class="auth-grupo">
+                        <label for="login-senha">Senha</label>
+                        <input type="password" id="login-senha" name="password" required placeholder="Digite sua senha" autocomplete="current-password">
+                    </div>
+                    <button type="submit" class="btn btn-principal btn-auth-enviar">Entrar no Espaço</button>
+                </form>
+                <div style="text-align:right; margin-top:12px;">
+                    <a href="#" id="link-esqueci-senha" style="font-size:0.85rem; color:var(--salvia); font-weight:700; text-decoration:underline;">Esqueci minha senha</a>
+                </div>
+            </div>
+            <div id="painel-esqueci-senha" class="auth-painel escondido" role="tabpanel">
+                <h3>Redefinir senha</h3>
+                <p style="color:var(--medio);font-size:0.92rem;margin-bottom:20px;line-height:1.6;">Digite seu e-mail cadastrado e enviaremos um link para você criar uma nova senha.</p>
+                <p class="auth-mensagem escondido" id="esqueci-mensagem" role="alert"></p>
+                <form id="form-esqueci-senha" autocomplete="on">
+                    <div class="auth-grupo">
+                        <label for="esqueci-email">E-mail</label>
+                        <input type="email" id="esqueci-email" name="email" required placeholder="seuemail@exemplo.com" autocomplete="email">
+                    </div>
+                    <button type="submit" class="btn btn-principal btn-auth-enviar">Enviar link de redefinição</button>
+                </form>
+                <div style="text-align:center; margin-top:16px;">
+                    <a href="#" id="link-voltar-login" style="font-size:0.85rem; color:var(--suave); font-weight:700; text-decoration:underline;">← Voltar para o login</a>
+                </div>
+            </div>
+            <div id="painel-cadastro" class="auth-painel escondido" role="tabpanel" aria-labelledby="tab-cadastro">
+                <h3>Junte-se à nossa rede de apoio</h3>
+                <p class="auth-mensagem escondido" id="cadastro-mensagem" role="alert"></p>
+                <form id="form-cadastro" autocomplete="on">
+                    <div class="auth-grupo">
+                        <label for="cadastro-nome">Nome Completo</label>
+                        <input type="text" id="cadastro-nome" name="name" required placeholder="Como quer ser chamada?" autocomplete="name">
+                    </div>
+                    <div class="auth-grupo">
+                        <label for="cadastro-email">E-mail</label>
+                        <input type="email" id="cadastro-email" name="email" required placeholder="seuemail@exemplo.com" autocomplete="email">
+                    </div>
+                    <div class="auth-grupo">
+                        <label for="cadastro-senha">Senha</label>
+                        <input type="password" id="cadastro-senha" name="new-password" required placeholder="Mínimo 6 caracteres" minlength="6" autocomplete="new-password">
+                    </div>
+                    <button type="submit" class="btn btn-principal btn-auth-enviar">Criar Minha Conta</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer role="contentinfo">
+        <div class="rodape-container">
+            <div>
+                <div class="rodape-logo">
+                    <img src="asperger.png" alt="" class="rodape-logo-icone" aria-hidden="true">
+                    <strong>Maternidade Atípica</strong>
+                </div>
+                <p class="rodape-descricao">Um espaço criado com carinho, respeito e responsabilidade para mães e famílias que caminham na jornada do TEA.</p>
+            </div>
+            <div class="rodape-links-col">
+                <h5>Explorar</h5>
+                <a href="index.html#guias">Guias Informativos</a>
+                <a href="blog.html">Blog da Comunidade</a>
+                <a href="relatos.html">Espaço de Relatos</a>
+                <a href="Relatório Maternidade Atípica.pdf" target="_blank" rel="noopener noreferrer">Documentação</a>
+            </div>
+        </div>
+        <div class="rodape-bottom">
+            <p>&copy; 2026 Maternidade Atípica — Feito com 💚 e muita dedicação.</p>
+            <p><a href="https://github.com/Jordana-code/Maternidade-Atipica" target="_blank" rel="noopener noreferrer" class="rodape-github-link" aria-label="Ver código-fonte no GitHub"><svg class="rodape-github-icone" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>Ver no GitHub</a></p>
+            <p class="aviso-medico">Aviso: O conteúdo deste site é informativo e de apoio mútuo. Não substitui diagnóstico médico, avaliações neuropsicológicas ou intervenções clínicas personalizadas.</p>
+        </div>
+        </div>
+    </footer>
+
+    <script src="supabase-config.js"></script>
+    <script src="auth.js"></script>
+    <script src="comum.js"></script>
+    <script src="miconta.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+/* ===================================================
+   RELATOS.CSS — Estilos específicos do Espaço de Relatos
+   Complementa blog.css (estrutura de cards/lista reaproveitada)
+=================================================== */
+
+.relato-tag-crianca {
+    display: inline-block;
+    background: var(--rosa-claro);
+    color: var(--rosa);
+    font-size: 0.78rem;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+body.tema-escuro .relato-tag-crianca { background: var(--rosa-claro); color: var(--rosa); }
+
+.relato-item .publicacao-texto { margin-bottom: 4px; }
+
+/* === CABEÇALHO COM AÇÕES DO AUTOR === */
+.publicacao-cabecalho {
+    position: relative;
+}
+
+.relato-acoes-autor {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.btn-editar-relato,
+.btn-excluir-relato {
+    background: none;
+    border: 1.5px solid var(--linha);
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    color: var(--suave);
+    padding: 5px 12px;
+    border-radius: 20px;
+    transition: var(--trans-rapida);
+    white-space: nowrap;
+}
+
+.btn-editar-relato:hover {
+    color: var(--salvia);
+    border-color: var(--salvia);
+    background: var(--salvia-suave);
+}
+
+.btn-excluir-relato:hover {
+    color: var(--rosa);
+    border-color: var(--rosa);
+    background: var(--rosa-suave);
+}
+
+/* === FORMULÁRIO DE EDIÇÃO INLINE === */
+.relato-edicao-form {
+    background: var(--fundo);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 8px;
+    border: 1.5px solid var(--salvia-claro);
+}
+
+.relato-edicao-titulo {
+    font-family: 'Playfair Display', serif;
+    color: var(--escuro);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.relato-edicao-acoes {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+}
+
+.relato-edicao-acoes .btn,
+.relato-edicao-acoes .btn-cancelar {
+    padding: 10px 24px;
+    font-size: 0.9rem;
+}
+
+.btn-cancelar {
+    background: var(--linha);
+    color: var(--medio);
+    border: none;
+    padding: 10px 22px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    transition: var(--trans);
+}
+
+.btn-cancelar:hover {
+    background: var(--areia);
+    color: var(--escuro);
+}
+
+/* === ANIMAÇÃO DE ENTRADA === */
+.relato-item {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* === ESTADO ESCONDIDO GENÉRICO === */
+.escondido { display: none !important; }
+
+/* === RESPONSIVO === */
+@media (max-width: 540px) {
+    .relato-acoes-autor {
+        flex-direction: row;
+        gap: 6px;
+    }
+    .btn-editar-relato,
+    .btn-excluir-relato {
+        padding: 4px 10px;
+        font-size: 0.74rem;
+    }
+    .relato-edicao-acoes {
+        flex-direction: column;
+    }
+    .relato-edicao-acoes .btn {
+        width: 100%;
+        text-align: center;
+    }
+}

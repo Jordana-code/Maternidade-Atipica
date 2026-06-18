@@ -1,0 +1,270 @@
+/* ===================================================
+   PERFIL.CSS — Estilos da página Meu Perfil
+   Complementa blog.css (cabeçalho, cards e listas)
+=================================================== */
+
+.conteudo-perfil { max-width: 760px; }
+
+/* === CARTÃO DE PERFIL === */
+.card-perfil {
+    background: var(--branco);
+    border: 1.5px solid var(--linha);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 36px;
+    box-shadow: var(--sombra-leve);
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+.perfil-avatar-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.perfil-avatar-grande {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: var(--salvia-claro);
+    color: var(--salvia);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 2rem;
+    flex-shrink: 0;
+    overflow: hidden;
+    border: 3px solid var(--salvia-suave);
+}
+
+.perfil-avatar-grande img { width: 100%; height: 100%; object-fit: cover; }
+
+.perfil-avatar-acoes { display: flex; flex-direction: column; gap: 6px; }
+
+.btn-trocar-foto {
+    cursor: pointer;
+    display: inline-flex;
+    width: fit-content;
+    padding: 10px 22px;
+    font-size: 0.88rem;
+}
+
+.perfil-avatar-dica { color: var(--suave); font-size: 0.8rem; margin: 0; }
+
+.perfil-avatar-acoes .auth-mensagem { margin: 6px 0 0; padding: 8px 12px; font-size: 0.8rem; }
+
+.perfil-info h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--escuro);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.perfil-email { color: var(--suave); font-size: 0.9rem; }
+
+/* === HISTÓRICO === */
+.card-historico {
+    background: var(--branco);
+    border: 1.5px solid var(--linha);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: var(--sombra-leve);
+}
+
+.card-historico h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    color: var(--escuro);
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.abas-historico {
+    display: flex;
+    border-bottom: 2px solid var(--linha);
+    margin-bottom: 22px;
+    gap: 0;
+}
+
+.painel-historico.escondido { display: none; }
+
+.lista-historico { display: flex; flex-direction: column; gap: 16px; }
+
+.item-historico {
+    background: var(--fundo);
+    border-radius: 16px;
+    padding: 18px 20px;
+}
+
+.item-historico h4 {
+    font-family: 'Playfair Display', serif;
+    color: var(--escuro);
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+
+.item-historico-data {
+    color: var(--suave);
+    font-size: 0.78rem;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.item-historico p {
+    color: var(--medio);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    margin: 0;
+}
+
+.item-historico .relato-tag-crianca { margin-bottom: 8px; }
+
+/* === CABEÇALHO DO ITEM DE HISTÓRICO (com botões de ação) === */
+.item-historico-cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+}
+
+.item-historico-cabecalho > div:first-child {
+    flex: 1;
+    min-width: 0;
+}
+
+.item-historico-acoes {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+    align-items: center;
+}
+
+.btn-historico-editar,
+.btn-historico-excluir {
+    background: none;
+    border: 1.5px solid var(--linha);
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+    color: var(--suave);
+    padding: 4px 10px;
+    border-radius: 20px;
+    transition: var(--trans-rapida);
+    white-space: nowrap;
+}
+
+.btn-historico-editar:hover {
+    color: var(--salvia);
+    border-color: var(--salvia);
+    background: var(--salvia-suave);
+}
+
+.btn-historico-excluir:hover {
+    color: var(--rosa);
+    border-color: var(--rosa);
+    background: var(--rosa-suave);
+}
+
+.item-historico-conteudo { margin-top: 4px; }
+.item-historico-conteudo p { margin: 6px 0 0; }
+.item-historico-edicao.escondido { display: none; }
+
+/* === BOTÃO CANCELAR (edição inline do histórico) === */
+.btn-cancelar {
+    background: var(--linha);
+    color: var(--medio);
+    border: none;
+    padding: 10px 22px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    transition: var(--trans);
+}
+
+.btn-cancelar:hover {
+    background: var(--areia);
+    color: var(--escuro);
+}
+
+/* === ZONA DE PERIGO === */
+.card-zona-perigo {
+    background: var(--branco);
+    border: 1.5px solid #f5c0c0;
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin-bottom: 28px;
+    box-shadow: var(--sombra-leve);
+}
+
+.card-zona-perigo h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--rosa);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.zona-perigo-descricao {
+    color: var(--medio);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.zona-perigo-descricao strong { color: var(--escuro); }
+
+.btn-excluir-conta {
+    background: none;
+    border: 2px solid var(--rosa);
+    color: var(--rosa);
+    padding: 11px 24px;
+    border-radius: 14px;
+    font-size: 0.9rem;
+    font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    transition: var(--trans);
+}
+
+.btn-excluir-conta:hover {
+    background: var(--rosa);
+    color: white;
+}
+
+.btn-excluir-conta:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+body.tema-escuro .card-zona-perigo {
+    border-color: rgba(200, 80, 80, 0.35);
+}
+
+/* === RESPONSIVO === */
+@media (max-width: 540px) {
+    .card-perfil { flex-direction: column; text-align: center; }
+    .perfil-avatar-area { flex-direction: column; }
+    .abas-historico { flex-wrap: wrap; }
+    .item-historico-cabecalho { flex-direction: column; }
+    .item-historico-acoes { width: 100%; justify-content: flex-end; }
+}
+/* === BOTÃO NOS ESTADOS VAZIOS DO HISTÓRICO === */
+.btn-historico-vazio {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 11px 28px;
+    font-size: 0.9rem;
+}
