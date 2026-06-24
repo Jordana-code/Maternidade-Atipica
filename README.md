@@ -92,6 +92,8 @@ maternidade-atipica/
 ├── index.html       # Página inicial
 ├── supabase-setup.sql  # Regras de segurança e políticas de acesso
 └── README.md
+
+
 ### Segurança e Controle de Acesso
 As políticas de acesso estão centralizadas em `supabase-setup.sql` e garantem que:
 - Conteúdos públicos são visíveis a todas as visitantes
