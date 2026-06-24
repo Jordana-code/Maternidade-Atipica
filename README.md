@@ -80,18 +80,6 @@ Espaço colaborativo onde usuárias cadastradas podem criar, editar e excluir pu
 
 ---
 
-## 🏗️ Arquitetura do Projeto
-
-maternidade-atipica/
-├── assets/          # Recursos visuais (imagens, ícones)
-├── css/             # Folhas de estilo
-│   └── style.css
-├── js/              # Scripts JavaScript
-├── pages/           # Páginas internas
-├── components/      # Componentes reutilizáveis
-├── index.html       # Página inicial
-├── supabase-setup.sql  # Regras de segurança e políticas de acesso
-└── README.md
 
 
 ### Segurança e Controle de Acesso
