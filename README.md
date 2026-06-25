@@ -2,7 +2,8 @@
 
 Plataforma web de apoio, informação e acolhimento para mães e famílias na jornada do Transtorno do Espectro Autista (TEA).
 
-
+🔗 **Site:** [maternidade-atipica.netlify.app](https://maternidade-atipica.netlify.app)  
+📁 **Repositório:** [github.com/Jordana-code/Maternidade-Atipica](https://github.com/Jordana-code/Maternidade-Atipica)
 
 ---
 
