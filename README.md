@@ -99,4 +99,4 @@ O conteúdo disponibilizado nesta plataforma tem caráter **exclusivamente infor
 
 ## 📄 Licença
 
-Projeto acadêmico desenvolvido para o Centro Universitário de Brasília (UniCEUB), 2026.
+Projeto acadêmico desenvolvido para o Centro Universitário de Brasília (UniCEUB), junho de 2026.
